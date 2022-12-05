@@ -36,7 +36,11 @@ def convert_currency():
         from_currency_country = request.form["from_currency_country"]
         to_currency_country = request.form["to_currency_country"]
         amount_currency = request.form["amount_currency"]
-        amount_currency = float(amount_currency)
+        try:
+            amount_currency = float(amount_currency)
+        except Exception as e:
+            return render_template("error.html",data=e)
+            
         result= round(to_get_currency(from_currency_country,to_currency_country,amount_currency),2)
     return  render_template("index.html",result=result,time=datetime.now().strftime("%m-%D-%Y %H-%M-%S"))
 
